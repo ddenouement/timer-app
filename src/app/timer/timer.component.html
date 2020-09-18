@@ -1,0 +1,10 @@
+<div class="timer-outer-wrapper">
+  <div class="timer-inner-wrapper">
+    {{ timeElapsedInSeconds | timeFormatPipe}}
+  </div>
+  <div class="controls">
+    <button class="timer-button" matTooltip="{{getStartStopTooltip()}}" (click)="checkStartStopTimer()">{{isWait || isStop ? "Start":"Stop"}}</button>
+    <button class="timer-button"   matTooltip="Timer will be set to 00:00:00 and stopped" (click)="resetTimer()">Reset</button>
+    <button class="timer-button"   matTooltip="Click button two times with interval < 300 ms" (click)="waitTimer()">Wait</button>
+  </div>
+</div>
