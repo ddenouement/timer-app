@@ -16,23 +16,21 @@ export class TimerComponent implements OnInit {
   private lastClick: number;
   timeElapsedInSeconds:number;
 
- // private subscriptions = new Subscription();
   constructor() { }
 
   ngOnInit(): void {
+   this.timeElapsedInSeconds = 0;
    this.isWait = false;
    this.isStop = true;
-  }
-
-  ngOnDestroy():void {
-    //this.subscriptions.unsubscribe();
   }
 
   startTimer(  ){
     this.isWait = false;
     this.isStop = false;
     this.stopCountingSignal = new  Subject();
-    var numbers = timer(1000, 1000); //1 sec delay
+    //on every number emitted, update the counter of seconds
+    //timer will be emitting a number every 1 second
+    var numbers = timer(1000, 1000);
        numbers
           .pipe(takeUntil( this.stopCountingSignal ))
           .subscribe(x =>{
@@ -51,7 +49,8 @@ export class TimerComponent implements OnInit {
   }
 
   waitTimer(){
-    const now = Date.now()
+    const now = Date.now();
+    //check whether it was a double click in a time interval
     if (now - this.lastClick < this.MAX_INTERVAL_DBLCLICK) {
         this.isWait = true;
         this.emitStopCountingSignal();
